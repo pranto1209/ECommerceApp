@@ -1,34 +1,29 @@
-# ECommerceApp
+# E-Commerce App
 
-A web application for E-commerce. C# ASP.NET Web API used for Backend RESTful API Services. Entity Framework used for queries and updates the database. ASP.NET Identity used for login and registration. Includes paging, sorting, searching, filtering, shopping cart, checkout features. Payments via Stripe using the new EU standards for 3D secure. Angular used for Frontend development to consume REST API. Used Angular routing and Angular services.
+Developed an E-Commerce web application using C# and ASP.NET Core Web API, following Clean Architecture principles. Implemented Repository, Unit of Work, and Specification patterns for maintainable and scalable code. Used Entity Framework Core as the ORM for database operations with SQL Server. Integrated ASP.NET Identity for secure login, registration, and role-based authorization. Key features include product pagination, sorting, searching, and filtering; shopping basket stored in Redis cache; and real-time notifications using SignalR WebSockets. Payment processing was handled via Stripe, supporting the latest EU 3D Secure standards. The frontend was built with Angular, utilizing reusable components, directives, pipes, services, guards, and reactive forms, along with lazy-loaded routes for performance optimization. The user interface was styled using Angular Material and Tailwind CSS.
 
+## Frontend Project
 
-## Running the project
+[e-commerce-app](https://github.com/pranto1209/e-commerce-app)
+
+## Backend Project
+
+[ECommerceApp](https://github.com/pranto1209/ECommerceApp)
+
+## Screenshots
+
+![](Docs/11.png)
+
+![](Docs/12.png)
+
+![](Docs/13.png)
+
+![](Docs/14.png)
+
 
 ## Stripe
 
-* Most of the functionality will work without Stripe but if you wish to see the payment functionality working too then you will need to create a Stripe account and populate the keys from Stripe.  In the API folder create a file called ‘appsettings.json’ with the following code:
-
-```json
-{
-    "Logging": {
-      "LogLevel": {
-        "Default": "Information",
-        "Microsoft.AspNetCore": "Warning"
-      }
-    },
-    "StripeSettings": {
-      "PublishableKey": "pk_test_REPLACEME",
-      "SecretKey": "sk_test_REPLACEME",
-      "WhSecret": "whsec_REPLACEME"
-    },
-    "AllowedHosts": "*"
-  }
-```
-
-* To use the Stripe webhook you will also need to use the StripeCLI, and when you run this you will be given a whsec key which you will need to add to the appsettings.json.   To get this key and instructions on how to install the Stripe CLI you can go to your Stripe dashboad ⇒ Developers ⇒ Webhooks ⇒ Add local listener.   The whsec key will be visible in the terminal when you run Stripe.
-
-* Once you have the Stripe CLI you can then run this so it listens to stripe events and forward them to the .Net API:
+* Setup a local listener
 
 ```bash
 .\stripe login
@@ -36,38 +31,9 @@ A web application for E-commerce. C# ASP.NET Web API used for Backend RESTful AP
 .\stripe listen --forward-to https://localhost:5001/api/payments/webhook -e payment_intent.succeeded
 ```
 
-## Docker
-
-* The app uses both Sql Server and Redis.   To start these services then you need to run this command from the solution folder.  These are both configured to run on their default ports so ensure you do not have a conflicting DB server running on either port 1433 or port 6379 on your computer:
-
-```bash
-docker compose up -d 
-```
-
-* You can use the Stripe test cards available from [here](https://docs.stripe.com/testing#cards) to pay for the orders.
+* Stripe test cards are available [here](https://docs.stripe.com/testing#cards) to pay for the orders
 
 
-## Scripts
-```bash
-dotnet ef migrations add Initial -s API -p Infrastructure
-dotnet ef database update -s API -p Infrastructure
-
-
-wsl --install
-wsl.exe -d Ubuntu
-sudo apt update
-sudo apt install redis-server
-sudo service redis-server start
-redis-cli
-> ping
-
-echo %PROCESSOR_ARCHITECTURE%
-
-docker run --name redis -p 6379:6379 -d redis
-```
-
-
-## Screenshots
 ![](Docs/1.png)
 
 ![](Docs/2.png)
@@ -77,3 +43,38 @@ docker run --name redis -p 6379:6379 -d redis
 ![](Docs/4.png)
 
 ![](Docs/5.png)
+
+
+## Docker
+
+* The app uses both SQL Server and Redis. To start these services run the command from the solution folder. These are both configured to run on their default ports so ensure there have no conflicting DB server running on either port 1433 or port 6379.
+
+```bash
+docker compose up -d 
+```
+
+
+## Scripts
+```bash
+# Add Migrations
+dotnet ef migrations add ECommerceApp -s API -p Infrastructure
+
+# Update Database
+dotnet ef database update -s API -p Infrastructure
+
+# Install Windows Subsystem for Linux
+wsl --install
+
+# Open WSL Ububtu Terminal
+wsl.exe -d Ubuntu
+
+# Install Redis
+sudo apt update
+sudo apt install redis-server
+sudo service redis-server start
+redis-cli
+> ping
+
+# Install Redis using Docker
+docker run --name redis -p 6379:6379 -d redis
+```
