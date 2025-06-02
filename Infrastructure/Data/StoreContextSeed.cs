@@ -9,18 +9,6 @@ public class StoreContextSeed
 {
     public static async Task SeedAsync(StoreContext context, UserManager<AppUser> userManager)
     {
-        if (!userManager.Users.Any(x => x.UserName == "admin@test.com"))
-        {
-            var user = new AppUser
-            {
-                UserName = "admin@test.com",
-                Email = "admin@test.com",
-            };
-
-            await userManager.CreateAsync(user, "Pa$$w0rd");
-            await userManager.AddToRoleAsync(user, "Admin");
-        }
-
         var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         if (!context.Products.Any())
@@ -32,7 +20,7 @@ public class StoreContextSeed
 
             if (products == null) return;
 
-            context.Products.AddRange(products);
+            await context.Products.AddRangeAsync(products);
 
             await context.SaveChangesAsync();
         }
@@ -46,7 +34,7 @@ public class StoreContextSeed
 
             if (methods == null) return;
 
-            context.DeliveryMethods.AddRange(methods);
+            await context.DeliveryMethods.AddRangeAsync(methods);
 
             await context.SaveChangesAsync();
         }
