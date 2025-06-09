@@ -14,13 +14,15 @@ An E-Commerce web application to browse, search and purchase products. The backe
 
 ## Screenshots
 
-![](Docs/11.png)
+![](Docs/1.png)
 
-![](Docs/12.png)
+![](Docs/2.png)
 
-![](Docs/13.png)
+![](Docs/3.png)
 
-![](Docs/14.png)
+![](Docs/4.png)
+
+![](Docs/5.png)
 
 
 ## Stripe
@@ -35,15 +37,15 @@ An E-Commerce web application to browse, search and purchase products. The backe
 
 * Stripe test cards are available [here](https://docs.stripe.com/testing#cards) to pay for the orders
 
-![](Docs/1.png)
+![](Docs/Stripe/1.png)
 
-![](Docs/2.png)
+![](Docs/Stripe/2.png)
 
-![](Docs/3.png)
+![](Docs/Stripe/3.png)
 
-![](Docs/4.png)
+![](Docs/Stripe/4.png)
 
-![](Docs/5.png)
+![](Docs/Stripe/5.png)
 
 
 ## Docker
